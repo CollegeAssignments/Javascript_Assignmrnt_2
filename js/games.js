@@ -24,7 +24,7 @@ function CreateCardDeck()
 }
 
 
-//Shufle Deck
+//Shuffle Deck
 //Used this after my own version was very inefficent
 //http://bost.ocks.org/mike/shuffle/
 function ShuffleCardDeck(cardDeck)
@@ -43,4 +43,14 @@ function ShuffleCardDeck(cardDeck)
         cardDeck[i] = t;
     }
     return cardDeck;
+}
+
+
+//Returns new shuffled deck
+function newShuffledDeck()
+{
+    var cardDeck = CreateCardDeck();
+    var newShuffle = ShuffleCardDeck(cardDeck);
+    return newShuffle;
+    
 }

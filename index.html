@@ -1,4 +1,4 @@
-<html>
+<html class="blackJackPage">
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
@@ -10,32 +10,341 @@
     
     <script>
     
-    $(document).ready(function(){
-        var cardDeck = CreateCardDeck();
-        var newShuffle = ShuffleCardDeck(cardDeck);
-        console.log(newShuffle);
-    });
+        $(document).ready(function(){
         
+            
+            
+            var curCardIndex =0;
+            var dealerScore =0;
+            var playerScore =0;
+
+            //Decide dealer move
+            var dealerMove = 0;
+
+            var cardDeck = newShuffledDeck();
+
+            //Values of card at fromt of card deck
+            var curValue = cardDeck[curCardIndex]['value'];
+            var curSuit = cardDeck[curCardIndex]['suit'];
+
+            //Size of visable cards // Should match #dealer & #player width in css file
+            var cardSize = "140px 220px";
+            var cardBG = 'url("images/playing_cards_images/' + curValue + '_of_' + curSuit + '.png")';
+            //Store background image for hidden dealer card
+            var hiddenDealerCard;
+
+
+
+            //Deal new cards .... NEW GAME
+            $('#btnDeal').click(function (){
+                
+                $('#btnDeal').attr("disabled",true);
+                
+                cardDeck = newShuffledDeck();
+
+                ////////////////////////////////////
+                //Reset Game variables and mesages//
+
+                checkState = 0;
+                dealerMove = 0
+                var curCardIndex = 0;
+
+                //Clear messages
+                $('#Message').text("");
+
+                playerScore=0;
+                $('#playerScore').text("Player score :" + playerScore);
+                dealerScore=0;
+                $('#dealerScore').text("Dealer score :" + dealerScore);
+
+                $('#player > div').remove();
+                $('#dealer > div').remove();
+
+                //Reenable stand and hit buttons
+                $('#btnHit').attr("disabled",false);
+                $('#btnStand').attr("disabled",false);
+
+                //End Reset Game variables and mesages//
+                ////////////////////////////////////////
+
+                //////////////////////////
+                //Create initial 4 cards//
+
+                //player card 1
+                $('<div id="playCard1"></div>').addClass("cardHolder").delay(600).queue(function (next) {
+                    $(this).hide().appendTo('#player').fadeIn(500);
+                    $('#playCard1').append('<p id="card1Value"></p>');
+                    $('#playCard1').append('<p id="card1Suit"></p>');
+                    $('#card1Value').text(curValue).hide();
+                    $('#card1Suit').text(curSuit).hide();
+                    $('#playCard1').css({"background-image": cardBG, "background-size":cardSize});
+                    //Calculate player score
+                    playerScore += CalcScore(curValue,"p");
+                    curCardIndex++;
+                    //Set next cards value & suit
+                    curValue = cardDeck[curCardIndex]['value'];
+                    curSuit = cardDeck[curCardIndex]['suit'];
+                    //Set next cards bg image
+                    cardBG = 'url("images/playing_cards_images/' + curValue + '_of_' + curSuit + '.png")';
+                    hiddenDealerCard = cardBG;
+                    next();
+                }); 
+
+                //dealer card 1
+                $('<div id="dealCard1"></div>').addClass("cardHolder").delay(1200).queue(function (next) {
+                    $(this).hide().appendTo('#dealer').fadeIn(500);
+                    $('#dealCard1').append('<p id="card2Value"></p>');
+                    $('#dealCard1').append('<p id="card2Suit"></p>');
+                    $('#card2Value').text(curValue).hide();
+                    $('#card2Suit').text(curSuit).hide();
+                    $('#dealCard1').css({"background-image": 'url("images/playing_cards_images/card_back.png")', "background-size":cardSize});
+                    dealerScore += CalcScore(curValue,"d");
+                    curCardIndex++;
+                    curValue = cardDeck[curCardIndex]['value'];
+                    curSuit = cardDeck[curCardIndex]['suit'];
+                    cardBG = 'url("images/playing_cards_images/' + curValue + '_of_' + curSuit + '.png")';
+                    next();
+                });
+
+                //player Card 2
+                $('<div id="playCard2"></div>').addClass("cardHolder").delay(1800).queue(function (next) {
+                    $(this).hide().appendTo('#player').fadeIn(500);
+                    $('#playCard2').append('<p id="card3Value"></p>');
+                    $('#playCard2').append('<p id="card3Suit"></p>');
+                    $('#card3Value').text(curValue).hide();
+                    $('#card3Suit').text(curSuit).hide();
+                    $('#playCard2').css({"background-image": cardBG, "background-size":cardSize});
+                    playerScore += CalcScore(curValue,"p");
+                    $('#playerScore').text("Player score :" + playerScore);
+                    CheckWin("Player",playerScore);
+                    curCardIndex++;
+                    curValue = cardDeck[curCardIndex]['value'];
+                    curSuit = cardDeck[curCardIndex]['suit'];
+                    cardBG = 'url("images/playing_cards_images/' + curValue + '_of_' + curSuit + '.png")';
+                    next();
+                });
+
+                //Dealer Card 2
+                $('<div id="dealCard2"></div>').addClass("cardHolder").delay(2400).queue(function (next) {
+                    $(this).hide().appendTo('#dealer').fadeIn(500);
+                    $('#dealCard2').append('<p id="card4Value"></p>');
+                    $('#dealCard2').append('<p id="card4Suit"></p>');
+                    $('#card4Value').text(curValue).hide();
+                    $('#card4Suit').text(curSuit).hide();
+                    $('#dealCard2').css({"background-image": cardBG, "background-size":cardSize});  
+                    dealerScore += CalcScore(curValue,"d");
+                    curCardIndex++;
+                    curValue = cardDeck[curCardIndex]['value'];
+                    curSuit = cardDeck[curCardIndex]['suit'];
+                    cardBG = 'url("images/playing_cards_images/' + curValue + '_of_' + curSuit + '.png")';
+                    newCardIndex = curCardIndex;
+                    next();
+                });  
+                //End Create initial 4 cards//
+                //////////////////////////////
+            });
+            
+            //Keeps track of the current card in play (should start a 4 after initial draw
+            var newCardIndex;
+            
+            //Add new card to player hand ... Call check score function
+            $('#btnHit').click(function(){
+                $('<div id="playCard' + newCardIndex + '"></div>').addClass("cardHolder").delay(600).queue(function (next) {
+                    $(this).hide().appendTo('#player').fadeIn(500);
+                    $('#playCard' + newCardIndex).append('<p id="card' + newCardIndex +'Value"></p>');
+                    $('#playCard' + newCardIndex).append('<p id="card' + newCardIndex +'Suit"></p>');
+                    $('#card' +newCardIndex + 'Value').text(curValue).hide();
+                    $('#card' +newCardIndex + 'Suit').text(curSuit).hide();
+                    $('#playCard' + newCardIndex).css({"background-image": cardBG, "background-size":cardSize});
+                    //Calculate player score
+                    playerScore += CalcScore(curValue,"p");
+                    $('#playerScore').text("Player score :" + playerScore);
+                    CheckWin("Player",playerScore);
+                    newCardIndex++;
+                    //Set next cards value & suit
+                    curValue = cardDeck[newCardIndex]['value'];
+                    curSuit = cardDeck[newCardIndex]['suit'];
+                    //Set next cards bg image
+                    cardBG = 'url("images/playing_cards_images/' + curValue + '_of_' + curSuit + '.png")';      
+                    next();
+                });
+            });
+            
+            
+            //Claculate value of card passed to it
+            //e.g value = "ace" contestant = "d"
+            function CalcScore(value,contestant)
+            {
+                var score;
+
+                switch(value)
+                {
+                    case "2": case "3": case "4": case "5": case "6": case "7": case "8": case "9": case "10":
+                        score = parseInt(value);
+                        break;
+                    case "jack": case "queen": case "king":
+                        score = 10;
+                        break;
+                    case "ace":
+                        if(contestant == "p")
+                        {
+                            if(playerScore + 11 > 21)
+                                score = 1;
+                            else
+                                score = 11;
+                        }
+                        else if(contestant == "d")
+                        {
+                            if(dealerScore + 11 > 21)
+                                score = 1;
+                            else
+                                score = 11;
+                        }
+                        break;
+                }     
+
+                return score;
+            }
+            
+            //Code for Dealer moves
+            $('#btnStand').click(function(){
+                if(dealerMove == 0)
+                {
+                    $('#dealCard1').css({"background-image": hiddenDealerCard, "background-size":cardSize});
+                    $('#dealerScore').text("Dealer score :" + dealerScore);
+                    CheckWin("Dealer",dealerScore);
+                    dealerMove++;
+                }
+
+                //Attempt to code some logic for dealer
+                var dealerChance = 21 - dealerScore;
+                var rnd = Math.floor((Math.random() * dealerChance) +1);
+                
+                if(dealerScore > playerScore)
+                {
+                    $('#Message').text("Dealer Wins");
+                    $('#btnHit').attr("disabled",true);
+                    $('#btnStand').attr("disabled",true);
+                    $('#btnDeal').attr("disabled",false);
+                }
+                else if(dealerScore <= 10)
+                {
+                    DealerDraw();
+                }
+                else if(rnd %2 == 0 || dealerScore <= playerScore)
+                {
+                    DealerDraw();
+                }
+                else
+                {
+                    if(playerScore > dealerScore && playerScore <=21)
+                    {
+                        $('#Message').text("Player Wins");
+                        $('#btnHit').attr("disabled",true);
+                        $('#btnStand').attr("disabled",true);
+                        $('#btnDeal').attr("disabled",false);
+                    }
+                     if(dealerScore == 21)
+                    {
+                        $('#Message').text("Dealer : BlackJack");
+                        $('#btnHit').attr("disabled",true);
+                        $('#btnStand').attr("disabled",true);
+                        $('#btnDeal').attr("disabled",false);
+                    }
+                    else if(dealerScore < 21)
+                    {
+                        $('#Message').text("Dealer Wins");
+                        $('#btnHit').attr("disabled",true);
+                        $('#btnStand').attr("disabled",true);
+                        $('#btnDeal').attr("disabled",false);
+                    }
+                }  
+            });
+
+
+            //When called draws a new card fro the dealer
+            function DealerDraw()
+            {
+                $('<div id="dealCard' + newCardIndex + '"></div>').addClass("cardHolder").delay(600).queue(function (next) {
+                    $(this).hide().appendTo('#dealer').fadeIn(500);
+                    $('#dealCard' + newCardIndex).append('<p id="card'+ newCardIndex + 'Value"></p>');
+                    $('#dealCard2').append('<p id="card'+ newCardIndex + 'Suit"></p>');
+                    $('#card'+ newCardIndex + 'Value').text(curValue).hide();
+                    $('#card'+ newCardIndex + 'Suit').text(curSuit).hide();
+                    $('#dealCard' + newCardIndex).css({"background-image": cardBG, "background-size":cardSize});  
+                    dealerScore += CalcScore(curValue,"d");
+                    $('#dealerScore').text("Dealer score :" + dealerScore);
+                    CheckWin("Dealer",dealerScore);
+                    newCardIndex++;
+                    curValue = cardDeck[newCardIndex]['value'];
+                    curSuit = cardDeck[newCardIndex]['suit'];
+                    cardBG = 'url("images/playing_cards_images/' + curValue + '_of_' + curSuit + '.png")';
+                    next();
+                });  
+            }
+
+
+            function CheckWin(contestant,score)
+            { 
+                if(score > 21)
+                {
+                    $("#Message").text(contestant + " is bust!!");
+                    $('#btnHit').attr("disabled",true);
+                    $('#btnStand').attr("disabled",true);
+                    $('#btnDeal').attr("disabled",false);
+                }
+
+                if(score == 21)
+                {
+                    $("#Message").text(contestant + " : BlackJack");
+                    $('#btnHit').attr("disabled",true);
+                    $('#btnStand').attr("disabled",true);
+                    $('#btnDeal').attr("disabled",false);
+                }
+            }
+        });//End documentReady    
         
         
     </script>
 </head>
 <body>
-    
     <header id="mainHead">
-        <div id="headWrap"></div>
+        <div id="headWrap">
+            <ul>
+                <li><a href="#">Home (jQueryUI)</a></li>
+                <li class="active"><a href="#">BlackJack</a></li>
+                <li><a href="#">Solitare</a></li>
+                <li><a href="#">Memory Game</a></li>
+            </ul>
+        </div>
     </header>
     
-    <div id="wrapper">
-        <div id="leftCol">
-            <div id="dealer"></div>
-            <div id="player"></div>
+    <div id="bigMessage"><h1>Blackjack</h1></div>
+    <div id="infoBar">
+        <div class="innerWrap">
+            <div class="messageWrap"><p id="Message"></p></div>
+            <div class="messageWrap"><p id="dealerScore">Dealer score : 0</p></div>
+            <div class="messageWrap"><p id="playerScore">Player score : 0</p></div>
         </div>
-        <div id="rightCol">
-            <div id="scoreHolder"></div>
-        </div>
-        
     </div>
+    
+    <div id="wrapper"> 
+        <div class="innerWrap">
+            <div id="leftCol">
+                <div id="dealer"></div>
+                <div id="player"></div>
+            </div>
+            <div id="rightCol">
+                <div id="control">
+                    <button class="butWidth" id="btnDeal">Deal</button>
+                    <button id="btnHit">Hit</button>
+                    <button id="btnStand" >Stand</button>
+                    <p>The Object of the game is to score higher than the dealer.</p><br/><p>If either player score 21 its a Blackjack and is an instant win.</p><br/><p>Hit draws a new Card for the player.</p><br/><p>Stand will tell the dealer to draw a card. </p><br/><p>If either player goes over 21 its a BUST and the other player wins.</p><br/><p>- Numbered cards = Card value</p><br/><p>- Jack, Queen, King = 10</p><br/><p>- Ace = 11 / 1</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer></footer>
     
 </body>
 </html>
