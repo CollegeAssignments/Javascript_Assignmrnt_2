@@ -3,7 +3,7 @@
     <meta charset="UTF-8">
     <title>Solitare</title>
     
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/main.css">
 
     <script src="js/games.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
@@ -768,42 +768,67 @@
     </script>
 </head>
 <body>
-    <div id="gameViewPort">
-      
-        <div id="stock" class="cardArea">
+    <header id="mainHead">
+        <div id="headWrap">
+            <ul>
+                <li><a href="jqueryUI.html">Home (jQueryUI)</a></li>
+                <li><a href="blackJack.html">BlackJack</a></li>
+                <li class="active"><a href="solitaire.html">Solitare</a></li>
+                <li><a href="#">Memory Game</a></li>
+            </ul>
         </div>
-        
-        <div id="waste" class="cardArea">    
-        </div>
-        
-        <div id="foundations">
-            <div id="heartsfoundation" class="cardArea">
-            </div>
-            <div id="clubsfoundation" class="cardArea">
-            </div>
-            <div id="diamondsfoundation" class="cardArea">
-            </div>
-            <div id="spadesfoundation" class="cardArea">
-            </div>
-        </div>
-        
-        <div id="tableau">
-            <div id="tableauPile7" class="cardArea tableau">
-            </div>
-            <div id="tableauPile6" class="cardArea tableau">
-            </div>
-            <div id="tableauPile5" class="cardArea tableau">
-            </div>
-            <div id="tableauPile4" class="cardArea tableau">
-            </div>
-            <div id="tableauPile3" class="cardArea tableau">
-            </div>
-            <div id="tableauPile2" class="cardArea tableau">
-            </div>
-            <div id="tableauPile1" class="cardArea tableau">
-            </div>  
-            
+    </header>
+    
+    <div id="bigMessage"><h1>Solitaire</h1></div>
+    <div id="infoBar">
+        <div class="innerWrap">
+            <div class="messageWrap"><p id="Message"></p></div>
         </div>
     </div>
+   
+    <div id="wrapper"> 
+        <div class="innerWrap">
+           <div class="centreSolitaire">
+                <div id="gameViewPort">
+
+                    <div id="stock" class="cardArea">
+                    </div>
+
+                    <div id="waste" class="cardArea">    
+                    </div>
+
+                    <div id="foundations">
+                        <div id="heartsfoundation" class="cardArea">
+                        </div>
+                        <div id="clubsfoundation" class="cardArea">
+                        </div>
+                        <div id="diamondsfoundation" class="cardArea">
+                        </div>
+                        <div id="spadesfoundation" class="cardArea">
+                        </div>
+                    </div>
+
+                    <div id="tableau">
+                        <div id="tableauPile7" class="cardArea tableau">
+                        </div>
+                        <div id="tableauPile6" class="cardArea tableau">
+                        </div>
+                        <div id="tableauPile5" class="cardArea tableau">
+                        </div>
+                        <div id="tableauPile4" class="cardArea tableau">
+                        </div>
+                        <div id="tableauPile3" class="cardArea tableau">
+                        </div>
+                        <div id="tableauPile2" class="cardArea tableau">
+                        </div>
+                        <div id="tableauPile1" class="cardArea tableau">
+                        </div>  
+
+                    </div>
+                </div>
+            </div>
+        </div><!--Inner wrap-->
+    </div>
+    <footer></footer>
 </body>
 </html>
