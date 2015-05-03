@@ -1,0 +1,62 @@
+#gameViewPort {
+    margin-left: 200px;
+    width: 960px;
+    height: 800px;
+    background-color: deepskyblue;
+    position: relative;
+}
+
+#foundations {
+    width: 540px;
+    height: 150px;
+    position: absolute;
+    top: 15;
+    right: 15;
+}
+
+#tableau {
+    width: 930px;
+    height: 500px;
+    position: absolute;
+    top: 200;
+    right: 15;
+}
+
+#stock {
+    width: 110px;
+    height: 150px;
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    margin-left: 20px;
+}
+
+#waste {
+    width: 110px;
+    height: 150px;
+    position: absolute;
+    top: 15px;
+    left: 145px;
+    margin-left: 20px;
+}
+
+.cardArea {
+    width: 110px;
+    height: 150px;
+    margin-right: 20px;
+    float: right;
+    outline: 1px dashed black;
+    position: relative;
+}
+
+.appendCard {
+    position: absolute !important;
+    top: 20px !important;
+    left: 0px !important;
+}
+
+.appendCardTabKing {
+    position: absolute !important;
+    top: 0px !important;
+    left: 0px !important;
+}

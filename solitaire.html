@@ -1,0 +1,809 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Solitare</title>
+    
+    <link rel="stylesheet" href="css/style.css">
+
+    <script src="js/games.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    
+    <script>  
+        $(document).ready(function() {
+            //Create new shuffled deck
+            var cardDeck = newShuffledDeck();
+            
+            //Declare arrays for the piles of cards used in the tableau
+            var pile1 = [];
+            var pile2 = [];
+            var pile3 = [];
+            var pile4 = [];
+            var pile5 = [];
+            var pile6 = [];
+            var pile7 = [];
+            
+            PopulatePiles();
+            DisplayPiles();
+            DisplayStock();
+            DroppableFoundations("#heartsfoundation", "hearts");
+            DroppableFoundations("#clubsfoundation", "clubs");
+            DroppableFoundations("#diamondsfoundation", "diamonds");
+            DroppableFoundations("#spadesfoundation", "spades");
+            
+            $("#stock").click(function() {
+                if($(this).children().length > 0)
+                {
+                    if($(this).children().parent().attr("id") == "stock")
+                        DisplayWasteCard()
+                }
+                else
+                {
+                    $("#waste").children().each(function(index) {
+                        $(this).css("background-image", "url(images/playing_cards_images/card_back.png)").draggable({
+                            disabled: true,
+                        });
+                        $("#stock").prepend($(this));
+                    });
+                }
+            });
+            
+            window.setInterval(function(){
+                DroppableTableau();
+            }, 2000);
+            
+            $(document).on("mouseover", ".stockWasteCard", function() {
+                if($(this).parent().attr("id") == "stock" || $(this).parent().attr("id") == "waste")
+                    return false;
+                else
+                    $(this).droppable({ disabled: false });
+            });
+
+            function PopulatePiles()
+            {
+                for(var i=0;i<1;i++)
+                {
+                    pile1.push(cardDeck[i]);
+                }
+
+                for(var i=1;i<3;i++)
+                {
+                    pile2.push(cardDeck[i]);
+                }
+
+                for(var i=3;i<6;i++)
+                {
+                    pile3.push(cardDeck[i]);
+                }
+
+                for(var i=6;i<10;i++)
+                {
+                    pile4.push(cardDeck[i]);
+                }
+
+                for(var i=10;i<15;i++)
+                {
+                    pile5.push(cardDeck[i]);
+                }
+
+                for(var i=15;i<21;i++)
+                {
+                    pile6.push(cardDeck[i]);
+                }
+
+                for(var i=21;i<28;i++)
+                {
+                    pile7.push(cardDeck[i]);
+                }
+                
+                cardDeck.splice(0, 28);
+            }
+
+            function DisplayPiles()
+            {
+                var distanceTop1 = 0, zindex1 = 1;
+                var distanceTop2 = 0, zindex2 = 1;
+                var distanceTop3 = 0, zindex3 = 1;
+                var distanceTop4 = 0, zindex4 = 1;
+                var distanceTop5 = 0, zindex5 = 1;
+                var distanceTop6 = 0, zindex6 = 1;
+                var distanceTop7 = 0, zindex7 = 1;
+
+                for(var i=0;i<pile1.length;i++)
+                {
+                    var pileId = "#tableauPile1";
+                    var cardId = pile1[i].id;
+                    var bg_image = pile1[i].value + "_of_" + pile1[i].suit + ".png";
+
+                    CreateCard(cardId, bg_image, pileId, distanceTop1, zindex1, pile1[i].value, pile1[i].suit, true);
+                }
+
+                for(var i=0;i<pile2.length;i++)
+                {
+                    var bg_image;
+                    var cardId = pile2[i].id;
+                    var pileId = "#tableauPile2";
+
+                    if(i == pile2.length-1)
+                    {
+                        bg_image = pile2[i].value + "_of_" + pile2[i].suit + ".png";
+                        CreateCard(cardId, bg_image, pileId, distanceTop2, zindex2, pile2[i].value, pile2[i].suit, true);
+                    }
+                    else
+                    {
+                        bg_image = "card_back.png";
+                        CreateCard(cardId, bg_image, pileId, distanceTop2, zindex2, pile2[i].value, pile2[i].suit, false);
+                    }
+
+                    distanceTop2+=20;
+                    zindex2++;
+                }
+
+                for(var i=0;i<pile3.length;i++)
+                {
+                    var bg_image;
+                    var cardId = pile3[i].id;
+                    var pileId = "#tableauPile3"; 
+
+                    if(i == pile3.length-1)
+                    {
+                        bg_image = pile3[i].value + "_of_" + pile3[i].suit + ".png";
+                        CreateCard(cardId, bg_image, pileId, distanceTop3, zindex3, pile3[i].value, pile3[i].suit, true);
+                    }
+                    else
+                    {
+                        bg_image = "card_back.png";
+                        CreateCard(cardId, bg_image, pileId, distanceTop3, zindex3, pile3[i].value, pile3[i].suit, false);
+                    }
+
+                    distanceTop3+=20;
+                    zindex3++;
+                }
+
+                for(var i=0;i<pile4.length;i++)
+                {
+                    var bg_image;
+                    var cardId = pile4[i].id;
+                    var pileId = "#tableauPile4";
+
+                    if(i == pile4.length-1)
+                    {
+                        bg_image = pile4[i].value + "_of_" + pile4[i].suit + ".png";
+                        CreateCard(cardId, bg_image, pileId, distanceTop4, zindex4, pile4[i].value, pile4[i].suit, true);
+                    }
+                    else
+                    {
+                        bg_image = "card_back.png";
+                        CreateCard(cardId, bg_image, pileId, distanceTop4, zindex4, pile4[i].value, pile4[i].suit, false);
+                    }
+
+                    distanceTop4+=20;
+                    zindex4++;
+                }
+
+                for(var i=0;i<pile5.length;i++)
+                {
+                    var bg_image;
+                    var cardId = pile5[i].id;
+                    var pileId = "#tableauPile5"; 
+
+                    if(i == pile5.length-1)
+                    {
+                        bg_image = pile5[i].value + "_of_" + pile5[i].suit + ".png";
+                        CreateCard(cardId, bg_image, pileId, distanceTop5, zindex5, pile5[i].value, pile5[i].suit, true);
+                    }
+                    else
+                    {
+                        bg_image = "card_back.png";
+                        CreateCard(cardId, bg_image, pileId, distanceTop5, zindex5, pile5[i].value, pile5[i].suit, false);
+                    }
+
+                    distanceTop5+=20;
+                    zindex5++;
+                }
+
+                for(var i=0;i<pile6.length;i++)
+                {
+                    var bg_image;
+                    var cardId = pile6[i].id;
+                    var pileId = "#tableauPile6"; 
+
+                    if(i == pile6.length-1)
+                    {
+                        bg_image = pile6[i].value + "_of_" + pile6[i].suit + ".png";
+                        CreateCard(cardId, bg_image, pileId, distanceTop6, zindex6, pile6[i].value, pile6[i].suit, true);
+                    }
+                    else
+                    {
+                        bg_image = "card_back.png";
+                        CreateCard(cardId, bg_image, pileId, distanceTop6, zindex6, pile6[i].value, pile6[i].suit, false);
+                    }
+
+                    distanceTop6+=20;
+                    zindex6++;
+                }
+
+                for(var i=0;i<pile7.length;i++)
+                {
+                    var bg_image;
+                    var cardId = pile7[i].id;
+                    var pileId = "#tableauPile7"; 
+
+                    if(i == pile7.length-1)
+                    {
+                        bg_image = pile7[i].value + "_of_" + pile7[i].suit + ".png";
+                        CreateCard(cardId, bg_image, pileId, distanceTop7, zindex7, pile7[i].value, pile7[i].suit, true);
+                    }
+                    else
+                    {
+                        bg_image = "card_back.png";
+                        CreateCard(cardId, bg_image, pileId, distanceTop7, zindex7, pile7[i].value, pile7[i].suit, false);
+                    }
+
+                    distanceTop7+=20;
+                    zindex7++;
+                }
+            }
+            
+            function DisplayStock()
+            {
+                $(cardDeck).each(function(index) {
+                    var cardId = cardDeck[index].id;
+                    var cardValue = cardDeck[index].value;
+                    var cardSuit = cardDeck[index].suit;
+                    var bg_image = "card_back.png";
+                    var stockId = "#stock";
+                    
+                    var wasteCard = CreateCard(cardId, bg_image, stockId, 0, 0, cardValue, cardSuit, false);
+                    wasteCard.addClass("stockWasteCard");
+                });
+            }
+            
+            function DisplayWasteCard()
+            {
+                var cardValue = $("#stock div:last-child").data("cardDetails").cardValue;
+                var cardSuit = $("#stock div:last-child").data("cardDetails").cardSuit;
+                var bg_image = cardValue + "_of_" + cardSuit + ".png";
+                
+                $("#stock div:last-child").css("background-image", 'url(images/playing_cards_images/' + bg_image + ')').draggable({
+                    revert: true,
+                    containment: "window",
+                    start: function() {
+                        $(this).css("z-index", 10);},
+                    stop: function() {
+                        $(this).css("z-index", 0);},
+                    disabled: false,
+                }).droppable({
+                    disabled: true,
+                    accept: function(d) {
+                        var dragCardSuit = $(d).data("cardDetails").cardSuit;
+                        var dragCardValue = $(d).data("cardDetails").cardValue;
+
+                        var acceptable = CardDropAccept($(this), dragCardSuit, dragCardValue);
+
+                        if(acceptable == true)
+                            return true;
+                    },
+                    drop: function(ev, ui) {  
+                        var cardId = $(ui.draggable).attr("id");
+                        var parentPile = "#" + $(ui.draggable).parent().attr('id') + " div";
+
+                        ui.draggable.detach();
+                        $(this).append(ui.draggable);
+                        $(this).find("div").attr("id", cardId).addClass("appendCard");
+
+                        FlipNextCard(parentPile);
+                    }
+                });
+                
+                $("#waste").append($("#stock div:last-child"));
+            }
+            
+            function DroppableFoundations(id, suit)
+            {
+                $(id).droppable({
+                    accept: function(d) {
+                        var cardSuit = $(d).data("cardDetails").cardSuit;
+                        var cardValue = $(d).data("cardDetails").cardValue;
+
+                        if (cardSuit == suit)
+                        {
+                            if($(this).children().length == 0)
+                            {
+                                if(cardValue == "ace")
+                                    return true;
+                            }
+                            else if($(this).children().last().data("cardDetails").cardValue == "ace")
+                            {
+                                if(cardValue == "2")
+                                    return true;
+                            }    
+                            else if($(this).children().last().data("cardDetails").cardValue == "jack")
+                            {
+                                if(cardValue == "queen")
+                                    return true;
+                            }    
+                            else if($(this).children().last().data("cardDetails").cardValue == "queen")
+                            {
+                                if(cardValue == "king") 
+                                    return true;
+                            }
+                            else if($(this).children().last().data("cardDetails").cardValue == parseInt(cardValue)-1) 
+                            {
+                                return true;
+                            }
+                        }
+                    },
+                    drop: function(ev, ui) {             
+                        var cardId = $(ui.draggable).attr("id");
+                        var cardValue = $(ui.draggable).data("cardDetails").cardValue;
+                        var cardSuit = $(ui.draggable).data("cardDetails").cardSuit;
+                        var bg_image = cardValue + "_of_" + cardSuit + ".png";
+                        var parentPile = "#" + $(ui.draggable).parent().attr('id') + " div";
+
+                        ui.draggable.detach();
+                        
+                        CreateCard(cardId, bg_image, id, 0, 0, cardValue, cardSuit, true);
+
+                        FlipNextCard(parentPile);
+                    }
+                });
+            }
+            
+            function CreateCard(cardID, bg_image, appendId, topDistance, zIndex, cardValue, cardSuit, drag)
+            {
+                var card = $("<div>");
+                
+                $(card).attr("id", cardID).css("width", "110px").css("height", "150px").css("background-image", 'url(images/playing_cards_images/' + bg_image + ')').css("position", "absolute").css("top", topDistance).css("z-index", zIndex).data("cardDetails", { cardValue: cardValue, cardSuit: cardSuit }).addClass("card");
+                
+                if(drag == true)
+                {
+                    $(card).draggable({
+                        revert: true,
+                        containment: "window",
+                        start: function() {
+                            $(this).css("z-index", 10);},
+                        stop: function() {
+                            $(this).css("z-index", 7);},
+                        drag: function(ev, ui) {
+                            if($(this).data("droppedin"))
+                            {
+                                $(this).data("droppedin").droppable({ disabled: fasle });
+                                $(this).data('droppedin',null);
+                                $(this).removeClass( 'dropped' );
+                            }
+                        }
+                    }).droppable({
+                        accept: function(d) {
+                            var dragCardSuit = $(d).data("cardDetails").cardSuit;
+                            var dragCardValue = $(d).data("cardDetails").cardValue;
+                            
+                            var acceptable = CardDropAccept($(this), dragCardSuit, dragCardValue);
+                            
+                            if(acceptable == true)
+                                return true;
+                        },
+                        drop: function(ev, ui) {  
+                            var cardId = $(ui.draggable).attr("id");
+                            var parentPile = "#" + $(ui.draggable).parent().attr('id') + " div";
+                            
+                            ui.draggable.addClass( 'dropped' );
+                            
+                            ui.draggable.data('droppedin',$(this));
+                            $(this).droppable({ disabled: true});
+                            
+                            ui.draggable.detach();
+                            $(this).append(ui.draggable);
+                            $(this).find("div").attr("id", cardId).addClass("appendCard");
+                            
+                            ui.draggable.droppable({
+                                accept: function(d) {
+                                    var dragCardSuit = $(d).data("cardDetails").cardSuit;
+                                    var dragCardValue = $(d).data("cardDetails").cardValue;
+
+                                    var acceptable = CardDropAccept($(this), dragCardSuit, dragCardValue);
+
+                                    if(acceptable == true)
+                                        return true;
+                                },
+                                drop: function(ev, ui) {  
+                                    var cardId = $(ui.draggable).attr("id");
+                                    var parentPile = "#" + $(ui.draggable).parent().attr('id') + " div";
+                                    
+                                    ui.draggable.addClass( 'dropped' );
+                            
+                                    ui.draggable.data('droppedin',$(this));
+                                    $(this).droppable({ disabled: true});
+
+                                    ui.draggable.detach();
+                                    $(this).append(ui.draggable).draggable({revert:true});
+                                    $(this).find("div").attr("id", cardId).addClass("appendCard");
+
+                                    FlipNextCard(parentPile);
+                                }
+                            });
+
+                            FlipNextCard(parentPile);
+                        }
+                    });
+                }
+                
+                $(appendId).append(card);
+                
+                return card;
+            }
+            
+            function FlipNextCard(pile)
+            {
+                if($(pile).length != 0)
+                {
+                    var cardValue = $(pile).eq(-1).data("cardDetails").cardValue;
+                    var cardSuit = $(pile).eq(-1).data("cardDetails").cardSuit;
+                    var bg_image = cardValue + "_of_" + cardSuit + ".png";
+
+                    $(pile).eq(-1).css("background-image", 'url(images/playing_cards_images/' + bg_image + ')').draggable({
+                        revert: true,
+                        containment: "window",
+                        start: function() {
+                            $(this).css("z-index", 10);},
+                        stop: function() {
+                            $(this).css("z-index", 7);},
+                    }).droppable({
+                        accept: function(d) {
+                            var dragCardSuit = $(d).data("cardDetails").cardSuit;
+                            var dragCardValue = $(d).data("cardDetails").cardValue;
+
+                            var acceptable = CardDropAccept($(this), dragCardSuit, dragCardValue);
+                            
+                            if(acceptable == true)
+                                return true;
+                        },
+                        drop: function(ev, ui) {  
+                            var cardId = $(ui.draggable).attr("id");
+                            var parentPile = "#" + $(ui.draggable).parent().attr('id') + " div";
+                            
+                            ui.draggable.addClass( 'dropped' );
+                            
+                            ui.draggable.data('droppedin',$(this));
+                            $(this).droppable({ disabled: true});
+
+                            ui.draggable.detach();
+                            $(this).append(ui.draggable);
+                            $(this).find("div").attr("id", cardId).addClass("appendCard");
+                            ui.draggable.draggable({
+                                revert: true,
+                                containment: "window",
+                                start: function() {
+                                    $(this).css("z-index", 10);},
+                                stop: function() {
+                                    $(this).css("z-index", 7);},
+                            }).droppable({
+                                accept: function(d) {
+                                    var dragCardSuit = $(d).data("cardDetails").cardSuit;
+                                    var dragCardValue = $(d).data("cardDetails").cardValue;
+
+                                    var acceptable = CardDropAccept($(this), dragCardSuit, dragCardValue);
+                            
+                                    if(acceptable == true)
+                                        return true;
+                                },
+                                drop: function(ev, ui) {  
+                                    var cardId = $(ui.draggable).attr("id");
+                                    var parentPile = "#" + $(ui.draggable).parent().attr('id') + " div";
+                                    
+                                    ui.draggable.addClass( 'dropped' );
+                            
+                                    ui.draggable.data('droppedin',$(this));
+                                    $(this).droppable({ disabled: true });
+
+                                    ui.draggable.detach();
+                                    $(this).append(ui.draggable).draggable({revert:true});
+                                    $(this).find("div").attr("id", cardId).addClass("appendCard");
+
+                                    FlipNextCard(parentPile);
+                                }
+                            });
+                            
+                            FlipNextCard(parentPile);
+                        }
+                    });
+                }
+            }
+            
+            function DroppableTableau()
+            {
+                $(".tableau").each(function(index, element) {
+                    if($(this).children().length == 0)
+                    {
+                        $(this).droppable({
+                            accept: function(d) {
+                                if($(d).data("cardDetails").cardValue == "king")
+                                    return true;
+                            },
+                            drop: function(ev, ui) {
+                                var cardId = $(ui.draggable).attr("id");
+                                var parentPile = "#" + $(ui.draggable).parent().attr('id') + " div";
+
+                                ui.draggable.detach();
+                                $(this).append(ui.draggable);
+                                ui.draggable.addClass("appendCardTabKing");
+                                
+                                ui.draggable.droppable({
+                                    accept: function(d) {
+                                        var dragCardSuit = $(d).data("cardDetails").cardSuit;
+                                        var dragCardValue = $(d).data("cardDetails").cardValue;
+
+                                        if($(this).data("cardDetails").cardSuit == "clubs" || $(this).data("cardDetails").cardSuit == "spades")
+                                        {
+                                            if(dragCardSuit == "hearts" || dragCardSuit == "diamonds")
+                                            {
+                                                if($(this).data("cardDetails").cardValue == "2")
+                                                {
+                                                    if(dragCardValue == "ace")
+                                                        return true;
+                                                }    
+                                                else if($(this).data("cardDetails").cardValue == "jack")
+                                                {
+                                                    if(dragCardValue == "10")
+                                                        return true;
+                                                }
+                                                else if($(this).data("cardDetails").cardValue == "queen")
+                                                {
+                                                    if(dragCardValue == "jack")
+                                                        return true;
+                                                }   
+                                                else if($(this).data("cardDetails").cardValue == "king")
+                                                {
+                                                    if(dragCardValue == "queen") 
+                                                        return true;
+                                                }
+                                                else if($(this).data("cardDetails").cardValue == parseInt(dragCardValue)+1) 
+                                                {
+                                                    return true;
+                                                }
+                                            }
+                                        }
+                                        else if($(this).data("cardDetails").cardSuit == "hearts" || $(this).data("cardDetails").cardSuit == "diamonds")
+                                        {
+                                            if(dragCardSuit == "clubs" || dragCardSuit == "spades")
+                                            {
+                                                if($(this).data("cardDetails").cardValue == "2")
+                                                {
+                                                    if(dragCardValue == "ace")
+                                                        return true;
+                                                }    
+                                                else if($(this).data("cardDetails").cardValue == "jack")
+                                                {
+                                                    if(dragCardValue == "10")
+                                                        return true;
+                                                }
+                                                else if($(this).data("cardDetails").cardValue == "queen")
+                                                {
+                                                    if(dragCardValue == "jack")
+                                                        return true;
+                                                }   
+                                                else if($(this).data("cardDetails").cardValue == "king")
+                                                {
+                                                    if(dragCardValue == "queen") 
+                                                        return true;
+                                                }
+                                                else if($(this).data("cardDetails").cardValue == parseInt(dragCardValue)+1) 
+                                                {
+                                                    return true;
+                                                }
+                                            }
+                                        }    
+                                    },
+                                    drop: function(ev, ui) {  
+                                        var cardId = $(ui.draggable).attr("id");
+                                        var parentPile = "#" + $(ui.draggable).parent().attr('id') + " div";
+
+                                        ui.draggable.detach();
+                                        $(this).append(ui.draggable);
+                                        $(this).find("div").attr("id", cardId).addClass("appendCard");
+                                        ui.draggable.draggable({
+                                            revert: true,
+                                            containment: "window",
+                                            start: function() {
+                                                $(this).css("z-index", 10);},
+                                            stop: function() {
+                                                $(this).css("z-index", 7);},
+                                        }).droppable({
+                                            accept: function(d) {
+                                                var dragCardSuit = $(d).data("cardDetails").cardSuit;
+                                                var dragCardValue = $(d).data("cardDetails").cardValue;
+
+                                                if($(this).data("cardDetails").cardSuit == "clubs" || $(this).data("cardDetails").cardSuit == "spades")
+                                                {
+                                                    if(dragCardSuit == "hearts" || dragCardSuit == "diamonds")
+                                                    {
+                                                        if($(this).data("cardDetails").cardValue == "2")
+                                                        {
+                                                            if(dragCardValue == "ace")
+                                                                return true;
+                                                        }    
+                                                        else if($(this).data("cardDetails").cardValue == "jack")
+                                                        {
+                                                            if(dragCardValue == "10")
+                                                                return true;
+                                                        }
+                                                        else if($(this).data("cardDetails").cardValue == "queen")
+                                                        {
+                                                            if(dragCardValue == "jack")
+                                                                return true;
+                                                        }   
+                                                        else if($(this).data("cardDetails").cardValue == "king")
+                                                        {
+                                                            if(dragCardValue == "queen") 
+                                                                return true;
+                                                        }
+                                                        else if($(this).data("cardDetails").cardValue == parseInt(dragCardValue)+1) 
+                                                        {
+                                                            return true;
+                                                        }
+                                                    }
+                                                }
+                                                else if($(this).data("cardDetails").cardSuit == "hearts" || $(this).data("cardDetails").cardSuit == "diamonds")
+                                                {
+                                                    if(dragCardSuit == "clubs" || dragCardSuit == "spades")
+                                                    {
+                                                        if($(this).data("cardDetails").cardValue == "2")
+                                                        {
+                                                            if(dragCardValue == "ace")
+                                                                return true;
+                                                        }    
+                                                        else if($(this).data("cardDetails").cardValue == "jack")
+                                                        {
+                                                            if(dragCardValue == "10")
+                                                                return true;
+                                                        }
+                                                        else if($(this).data("cardDetails").cardValue == "queen")
+                                                        {
+                                                            if(dragCardValue == "jack")
+                                                                return true;
+                                                        }   
+                                                        else if($(this).data("cardDetails").cardValue == "king")
+                                                        {
+                                                            if(dragCardValue == "queen") 
+                                                                return true;
+                                                        }
+                                                        else if($(this).data("cardDetails").cardValue == parseInt(dragCardValue)+1) 
+                                                        {
+                                                            return true;
+                                                        }
+                                                    }
+                                                }    
+                                            },
+                                            drop: function(ev, ui) {  
+                                                var cardId = $(ui.draggable).attr("id");
+                                                var parentPile = "#" + $(ui.draggable).parent().attr('id') + " div";
+
+                                                ui.draggable.detach();
+                                                $(this).append(ui.draggable).draggable({revert:true});
+                                                $(this).find("div").attr("id", cardId).addClass("appendCard");
+
+                                                FlipNextCard(parentPile);
+                                            }
+                                        });
+
+                                        FlipNextCard(parentPile);
+                                    }
+                                });
+
+                                FlipNextCard(parentPile);
+                            } 
+                        });
+                    }
+                    else
+                    {
+                        $(this).removeClass("ui-droppable");
+                    }
+                });
+            }
+            
+            function CardDropAccept(thisObj, dragCardSuit, dragCardValue)
+            {
+                if(thisObj.data("cardDetails").cardSuit == "clubs" || thisObj.data("cardDetails").cardSuit == "spades")
+                {
+                    if(dragCardSuit == "hearts" || dragCardSuit == "diamonds")
+                    {
+                        if(thisObj.data("cardDetails").cardValue == "2")
+                        {
+                            if(dragCardValue == "ace")
+                                return true;
+                        }    
+                        else if(thisObj.data("cardDetails").cardValue == "jack")
+                        {
+                            if(dragCardValue == "10")
+                                return true;
+                        }
+                        else if(thisObj.data("cardDetails").cardValue == "queen")
+                        {
+                            if(dragCardValue == "jack")
+                                return true;
+                        }   
+                        else if(thisObj.data("cardDetails").cardValue == "king")
+                        {
+                            if(dragCardValue == "queen") 
+                                return true;
+                        }
+                        else if(thisObj.data("cardDetails").cardValue == parseInt(dragCardValue)+1) 
+                        {
+                            return true;
+                        }
+                    }
+                }
+                else if(thisObj.data("cardDetails").cardSuit == "hearts" || thisObj.data("cardDetails").cardSuit == "diamonds")
+                {
+                    if(dragCardSuit == "clubs" || dragCardSuit == "spades")
+                    {
+                        if(thisObj.data("cardDetails").cardValue == "2")
+                        {
+                            if(dragCardValue == "ace")
+                                return true;
+                        }    
+                        else if(thisObj.data("cardDetails").cardValue == "jack")
+                        {
+                            if(dragCardValue == "10")
+                                return true;
+                        }
+                        else if(thisObj.data("cardDetails").cardValue == "queen")
+                        {
+                            if(dragCardValue == "jack")
+                                return true;
+                        }   
+                        else if(thisObj.data("cardDetails").cardValue == "king")
+                        {
+                            if(dragCardValue == "queen") 
+                                return true;
+                        }
+                        else if(thisObj.data("cardDetails").cardValue == parseInt(dragCardValue)+1) 
+                        {
+                            return true;
+                        }
+                    }
+                }    
+            }
+        });
+    </script>
+</head>
+<body>
+    <div id="gameViewPort">
+      
+        <div id="stock" class="cardArea">
+        </div>
+        
+        <div id="waste" class="cardArea">    
+        </div>
+        
+        <div id="foundations">
+            <div id="heartsfoundation" class="cardArea">
+            </div>
+            <div id="clubsfoundation" class="cardArea">
+            </div>
+            <div id="diamondsfoundation" class="cardArea">
+            </div>
+            <div id="spadesfoundation" class="cardArea">
+            </div>
+        </div>
+        
+        <div id="tableau">
+            <div id="tableauPile7" class="cardArea tableau">
+            </div>
+            <div id="tableauPile6" class="cardArea tableau">
+            </div>
+            <div id="tableauPile5" class="cardArea tableau">
+            </div>
+            <div id="tableauPile4" class="cardArea tableau">
+            </div>
+            <div id="tableauPile3" class="cardArea tableau">
+            </div>
+            <div id="tableauPile2" class="cardArea tableau">
+            </div>
+            <div id="tableauPile1" class="cardArea tableau">
+            </div>  
+            
+        </div>
+    </div>
+</body>
+</html>
