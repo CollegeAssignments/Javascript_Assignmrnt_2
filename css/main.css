@@ -315,4 +315,11 @@ button{
     left: 0px !important;
 }
 
+#heartsfoundation{background-image: url(../images/foundationBG/heartsBG.png)}
+#clubsfoundation{background-image: url(../images/foundationBG/clubBG.png)}
+#diamondsfoundation{background-image: url(../images/foundationBG/diamondsBG.png)}
+#spadesfoundation{background-image: url(../images/foundationBG/spadesBG.png)}
+
+
+
 /*END Solitaire relevent*/
