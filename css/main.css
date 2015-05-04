@@ -225,6 +225,17 @@ button{
 
 /*End BlackJack Relevent*/
 
+.tile {
+    width: 150px;
+    height: 150px;
+    float: left;
+    margin: 35px 0px 0 35px;
+}
+
+.front {
+    background-color: aqua;
+}
+
 /*Soliraire Relevent*/
 
 .centreSolitaire{
@@ -309,6 +320,9 @@ button{
 
 /*END Solitaire relevent*/
 
+/*Nick Flip Relevant*/
+
+/*END Nick Flip Relevant*/
 
 /*Index page*/
 
