@@ -12,8 +12,10 @@
     <script>
         $(document).ready(function() {
             
+            //Create a random array of bg images
             var flipBGImages = RandomArray();
             
+            //For each image create a tile
             for(var i=0;i<flipBGImages.length;i++)
             {
                 CreateTile(flipBGImages[i], i)
@@ -24,6 +26,9 @@
             
             $(".flipable").flip();
             
+            //When tile is clicked check is it the first or second click
+            //If its second compare the image src
+            //If these match remove the inner divs from both and add new divs that aren't clickable
             $(".flipable").click(function() {
                 if($(this).hasClass("flipable"))
                 {
@@ -69,6 +74,11 @@
                 }
             });
             
+            $("#btnNewGame").click(function() {
+                location.reload();
+            });
+
+            //Randomize Array
             function RandomArray()
             {
                 var flipBGImages = [];
@@ -88,6 +98,7 @@
                 return flipBGImages;
             }
             
+            //Dynamically create tile and append two divs to it
             function CreateTile(image, i)
             {
                 var tile = $("<div>");
@@ -121,7 +132,7 @@
     <div id="bigMessage"><h1>Nick Flip</h1></div>
     <div id="infoBar">
         <div class="innerWrap">
-            <div class="messageWrap"><p id="Message"></p></div>
+            <button id="btnNewGame" style="margin-left: 0px">New Game</button>
         </div>
     </div>
     <div id="wrapper"> 

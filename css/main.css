@@ -306,7 +306,7 @@ button{
 #clubsfoundation{background-image: url(../images/foundationBG/clubBG.png)}
 #diamondsfoundation{background-image: url(../images/foundationBG/diamondsBG.png)}
 #spadesfoundation{background-image: url(../images/foundationBG/spadesBG.png)}
-
+#btnNewGame{margin-left: 70px; position: absolute; z-index: 1; margin: 0px}
 
 
 /*END Solitaire relevent*/
@@ -326,7 +326,7 @@ button{
 
 /*Index page*/
 
-.indexInnerWrap{background-color: #fff; height: auto; min-height: auto; min-height: 900px}
+.indexInnerWrap{background-color: #fff; height: auto; min-height: auto; min-height: 1000px}
 
 #leftColIndex{
     height: auto;

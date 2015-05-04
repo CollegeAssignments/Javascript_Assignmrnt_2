@@ -23,6 +23,7 @@
             var pile6 = [];
             var pile7 = [];
             
+            //Call Functions
             PopulatePiles();
             DisplayPiles();
             DisplayStock();
@@ -31,6 +32,8 @@
             DroppableFoundations("#diamondsfoundation", "diamonds");
             DroppableFoundations("#spadesfoundation", "spades");
             
+            //When the stock is clicked, if there is cards in it then display the first card to waste
+            //If the stock is empty place all waste cards back in stock
             $("#stock").click(function() {
                 if($(this).children().length > 0)
                 {
@@ -48,17 +51,28 @@
                 }
             });
             
+            //Every second check is any tableau empty
             window.setInterval(function(){
                 DroppableTableau();
-            }, 2000);
+            }, 1000);
             
+            //On mouse over off any element with class 'stockWasteCard
+            //If it is contained in stock or waste(parent is stock/waste) make non-droppable
             $(document).on("mouseover", ".stockWasteCard", function() {
                 if($(this).parent().attr("id") == "stock" || $(this).parent().attr("id") == "waste")
                     return false;
                 else
                     $(this).droppable({ disabled: false });
             });
+            
+            //When new game button is clicked, reload the page, creating a fresh deck and game
+            $("#btnNewGame").click(function() {
+                location.reload();
+            });
 
+            //Fills the Pile arrays with cards from CardDeck array
+            //Loops through starting from certain points in the deck and takes the amount need for that pile
+            //When piles are filled splice the used cards from the CardDeck
             function PopulatePiles()
             {
                 for(var i=0;i<1;i++)
@@ -99,6 +113,7 @@
                 cardDeck.splice(0, 28);
             }
 
+            //Loop each pill and for each card call CreateCard() and pass parameters
             function DisplayPiles()
             {
                 var distanceTop1 = 0, zindex1 = 1;
@@ -245,6 +260,7 @@
                 }
             }
             
+            //For the remaing cards in CardDeck, loop through and create card and append to stock
             function DisplayStock()
             {
                 $(cardDeck).each(function(index) {
@@ -259,6 +275,7 @@
                 });
             }
             
+            //Append last cad in stock to the waste and make draggable
             function DisplayWasteCard()
             {
                 var cardValue = $("#stock div:last-child").data("cardDetails").cardValue;
@@ -299,6 +316,7 @@
                 $("#waste").append($("#stock div:last-child"));
             }
             
+            //Make the foundations droppable and specify the card suit they accept
             function DroppableFoundations(id, suit)
             {
                 $(id).droppable({
@@ -350,6 +368,7 @@
                 });
             }
             
+            //Create a card div with background image relevant to suit and value, make droppable and draggable
             function CreateCard(cardID, bg_image, appendId, topDistance, zIndex, cardValue, cardSuit, drag)
             {
                 var card = $("<div>");
@@ -368,7 +387,7 @@
                         drag: function(ev, ui) {
                             if($(this).data("droppedin"))
                             {
-                                $(this).data("droppedin").droppable({ disabled: fasle });
+                                $(this).data("droppedin").droppable({ disabled: false });
                                 $(this).data('droppedin',null);
                                 $(this).removeClass( 'dropped' );
                             }
@@ -433,6 +452,7 @@
                 return card;
             }
             
+            //When a card is dropped on a dropzone, fill the next card in the pile it came from
             function FlipNextCard(pile)
             {
                 if($(pile).length != 0)
@@ -510,6 +530,8 @@
                 }
             }
             
+            //Check is any tableau empty
+            //If so accept a card of value 'king'
             function DroppableTableau()
             {
                 $(".tableau").each(function(index, element) {
@@ -701,6 +723,7 @@
                 });
             }
             
+            //Determine what card a dropzone accepts by comparing suit and value
             function CardDropAccept(thisObj, dragCardSuit, dragCardValue)
             {
                 if(thisObj.data("cardDetails").cardSuit == "clubs" || thisObj.data("cardDetails").cardSuit == "spades")
@@ -773,7 +796,7 @@
             <ul>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="blackJack.html">BlackJack</a></li>
-                <li class="active"><a href="solitaire.html">Solitare</a></li>
+                <li class="active"><a href="solitaire.html">Solitaire</a></li>
                 <li><a href="nick_flip.html">Nick Flip</a></li>
             </ul>
         </div>
@@ -782,7 +805,7 @@
     <div id="bigMessage"><h1>Solitaire</h1></div>
     <div id="infoBar">
         <div class="innerWrap">
-            <div class="messageWrap"><p id="Message"></p></div>
+            <button id="btnNewGame" style="margin-left: 70px">New Game</button>
         </div>
     </div>
    
