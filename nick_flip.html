@@ -94,7 +94,7 @@
                 tile.attr("id", "tile" + i).addClass("tile").addClass("flipable");
                 
                 var front = $("<div>");
-                front.addClass("front");//.append('<img src="images/flip_images/tile_front.jpg" />');
+                front.addClass("front").append('<img src="images/flip_images/tile_front.jpg" />');
                 tile.append(front);
                 
                 var back = $("<div>");
@@ -125,8 +125,8 @@
         </div>
     </div>
     <div id="wrapper"> 
-        <div class="innerWrap">
-            <div id="gameViewPort">
+        <div class="innerWrap nickFlipBG" >
+            <div id="gameViewPort" >
             </div>
         </div><!--Inner wrap-->
     </div>

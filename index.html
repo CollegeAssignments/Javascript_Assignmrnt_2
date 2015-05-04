@@ -79,6 +79,7 @@
                 // set effect from select menu value
                 $( "#toggleTruth" ).click(function() {
                     runEffect();
+                    //ArcText
                     $example1.show().arctext('set',{radius: 900, dir: -1, animation	: {
                         speed	: 200
                     }});
@@ -88,11 +89,27 @@
             });
             
             
+            //Tooltip
             $(function() {
-                $( "#draggable" ).draggable();
+                var tooltips = $( "[title]" ).tooltip({
+                    position: {
+                        my: "left top",
+                        at: "right+5 top-5"
+                    }
+                });
+                $( "<button>" )
+                    .text( "Show help" )
+                    .button()
+                    .click(function() {
+                    tooltips.tooltip( "open" );
+                })
+                    .insertAfter( "form" );
             });
             
-            $('PrinceofNigeria').click(function(){};
+            //Datepicker
+            $(function() {
+                $( "#datepicker" ).datepicker();
+            });
 
         });//End Document Ready
     </script>
@@ -113,8 +130,7 @@
     <div id="bigMessageIndex"><div id="bigMesageCent"><h1 id="bigMessageMesage" class="h1">Worlds Worst Casino</h1></div></div>
     <div id="infoBar">
         <div class="innerWrap">
-            <button id="toggleTruth">Why So Sad</button>
-            <button id="PrinceofNigeria">Free Ipad</button>
+            <button id="toggleTruth">Why So Sad?</button>
         </div>
     </div><!-- end info bar-->
     
@@ -125,7 +141,7 @@
                     <ul>
                         <li><a href="#tabs-1">Solitaire</a></li>
                         <li><a href="#tabs-2">BlackJack</a></li>
-                        <li><a href="#tabs-3">Memory Flip</a></li>
+                        <li><a href="#tabs-3">Nick Flip</a></li>
                     </ul>
                     <div id="tabs-1">
                         <p>The purpose of Solitaire generally involves manipulating a layout of cards with a goal of sorting them in some manner. However it is possible to play the same games competitively (often a head to head race) and cooperatively.</p><br/><p>Solitaire games typically involve dealing cards from a shuffled deck into a prescribed arrangement on a tabletop, from which the player attempts to reorder the deck by suit and rank through a series of moves transferring cards from one place to another under prescribed restrictions. Some games allow for the reshuffling of the deck(s), and/or the placement of cards into new or "empty" locations. In the most familiar, general form of Patience, the object of the game is to build up four blocks of cards going from ace to king in each suit, taking cards from the layout if they appear on the table.</p>
@@ -143,11 +159,52 @@
                         <img src="images/indexPics/blackJackPic.jpg"/>
                     </div>
                     <div id="tabs-3">
-                        <p>Mauris eleifend est et turpis. Duis id erat. Suspendisse potenti. Aliquam vulputate, pede vel vehicula accumsan, mi neque rutrum erat, eu congue orci lorem eget lorem. Vestibulum non ante. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce sodales. Quisque eu urna vel enim commodo pellentesque. Praesent eu risus hendrerit ligula tempus pretium. Curabitur lorem enim, pretium nec, feugiat nec, luctus a, lacus.</p>
-                        <p>Duis cursus. Maecenas ligula eros, blandit nec, pharetra at, semper at, magna. Nullam ac lacus. Nulla facilisi. Praesent viverra justo vitae neque. Praesent blandit adipiscing velit. Suspendisse potenti. Donec mattis, pede vel pharetra blandit, magna ligula faucibus eros, id euismod lacus dolor eget odio. Nam scelerisque. Donec non libero sed nulla mattis commodo. Ut sagittis. Donec nisi lectus, feugiat porttitor, tempor ac, tempor vitae, pede. Aenean vehicula velit eu tellus interdum rutrum. Maecenas commodo. Pellentesque nec elit. Fusce in lacus. Vivamus a libero vitae lectus hendrerit hendrerit.</p>
+
+                        <p>Any deck of playing cards may be used, although there are special cards available, as shown in the picture above. The rules given here are for a standard deck of 52 cards, which are normally laid face down in four rows of 13 cards each. The two jokers may be included for a total of six rows of nine cards each.</p><br/><p>In turn each player chooses two cards and turns them face up. If they are of the same rank and color (e.g. six of hearts and six of diamonds, queen of clubs and queen of spades, or both jokers, if used) then that player wins the pair and plays again. If they are not of the same rank and color, they are turned face down again and play passes to the player on the left. The game ends when the last pair has been picked up. The winner is the person with the most pairs, and there may be a tie for first place.</p>
+                        <img src="images/indexPics/nic.jpg"/>
                     </div>
                 </div>
-            </div>
+                
+                <h2>Sign Up For Our Weekly Newletter </h2>
+                
+                <div id="indexLeftIndentLeft" class="form">
+                  
+                    <div>
+                        <label for="firstname">Firstname</label>
+                        <input id="firstname" name="firstname" title="Please provide your firstname.">
+                    </div>
+                    <div>
+                        <label for="lastname">Lastname</label>
+                        <input id="lastname" name="lastname" title="Please provide also your lastname.">
+                    </div>
+                    <div>
+                        <label for="address">Email</label>
+                        <input id="address" name="address" title="Please Provide Your Email Address">
+                    </div>
+                    <div>
+                        <label for="dob">Date of Birth</label>
+                        <input type="text" id="datepicker">
+                    </div>
+                    
+                    
+                </div><!--End indexLeftIndentLeft-->
+                <div id="indexLeftIndentRight" class="form">
+                    
+                    <div>
+                        <label for="address">Address Line 1</label>
+                        <input id="address" name="address" title="Your Home Address Line 1">
+                    </div>
+                    <div>
+                        <label for="address">Address Line 2</label>
+                        <input id="address" name="address" title="Your Home Address Line 2">
+                    </div>
+                    <div>
+                        <label for="address">City</label>
+                        <input id="address" name="address" title="Your City">
+                    </div>
+                </div>
+                
+            </div><!--End leftColdIndex-->
             <div id="rightColIndex" >
                 <div id="accordion-resizer" class="ui-widget-content">
                     <div id="accordion" >
@@ -177,11 +234,11 @@
                         <div>
                             <iframe width="260" height="180" src="https://www.youtube.com/embed/oUltheRpJNw" frameborder="0" allowfullscreen></iframe>
                         </div>
-                    </div> 
-                </div>
-            </div>
+                    </div> <!--End accordion-->
+                </div><!--End accordion-resizer-->
+            </div><!--rightColIndex-->
         </div>
-    </div>  
+    </div>  <!--End wrapper-->
     <footer></footer>
 </body>
 </html>

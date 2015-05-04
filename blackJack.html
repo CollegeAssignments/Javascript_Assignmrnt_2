@@ -223,9 +223,7 @@
                 if(dealerScore > playerScore)
                 {
                     $('#Message').text("Dealer Wins");
-                    $('#btnHit').attr("disabled",true);
-                    $('#btnStand').attr("disabled",true);
-                    $('#btnDeal').attr("disabled",false);
+                    DisableButtens();
                 }
                 else if(dealerScore <= 10)
                 {
@@ -240,27 +238,27 @@
                     if(playerScore > dealerScore && playerScore <=21)
                     {
                         $('#Message').text("Player Wins");
-                        $('#btnHit').attr("disabled",true);
-                        $('#btnStand').attr("disabled",true);
-                        $('#btnDeal').attr("disabled",false);
+                        DisableButtens();
                     }
                      if(dealerScore == 21)
                     {
                         $('#Message').text("Dealer : BlackJack");
-                        $('#btnHit').attr("disabled",true);
-                        $('#btnStand').attr("disabled",true);
-                        $('#btnDeal').attr("disabled",false);
+                        DisableButtens();
                     }
                     else if(dealerScore < 21)
                     {
                         $('#Message').text("Dealer Wins");
-                        $('#btnHit').attr("disabled",true);
-                        $('#btnStand').attr("disabled",true);
-                        $('#btnDeal').attr("disabled",false);
+                        DisableButtens();
                     }
                 }  
             });
-
+            
+            function DisableButtens()
+            {
+                $('#btnHit').attr("disabled",true);
+                $('#btnStand').attr("disabled",true);
+                $('#btnDeal').attr("disabled",false);
+            }
 
             //When called draws a new card fro the dealer
             function DealerDraw()
@@ -311,7 +309,7 @@
     <header id="mainHead">
         <div id="headWrap">
             <ul>
-                <li><a href="index.html">Home (jQueryUI)</a></li>
+                <li><a href="index.html">Home</a></li>
                 <li class="active"><a href="blackJack.html">BlackJack</a></li>
                 <li><a href="solitaire.html">Solitaire</a></li>
                 <li><a href="nick_flip.html">Nick Flip</a></li>

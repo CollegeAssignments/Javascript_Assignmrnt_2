@@ -80,6 +80,7 @@ body{
     float: left;
     width: 100%;
     height: auto;
+    min-height: 600px;
     margin: auto;
     margin-bottom: 60px;
     background-color: #ecf0f1;
@@ -225,16 +226,6 @@ button{
 
 /*End BlackJack Relevent*/
 
-.tile {
-    width: 150px;
-    height: 150px;
-    float: left;
-    margin: 35px 0px 0 35px;
-}
-
-.front {
-    background-color: aqua;
-}
 
 /*Soliraire Relevent*/
 
@@ -322,11 +313,20 @@ button{
 
 /*Nick Flip Relevant*/
 
+.tile {
+    width: 150px;
+    height: 150px;
+    float: left;
+    margin: 35px 0px 0 35px;
+}
+
+.nickFlipBG{background-color: #fff; min-height: 780; border-bottom-right-radius: 20px}
+
 /*END Nick Flip Relevant*/
 
 /*Index page*/
 
-.indexInnerWrap{background-color: #fff; height: auto; min-height: auto; min-height: 800px}
+.indexInnerWrap{background-color: #fff; height: auto; min-height: auto; min-height: 900px}
 
 #leftColIndex{
     height: auto;
@@ -392,14 +392,32 @@ button{
     top: 70px;
 }
 
-
 .h1{
     font-size: 90px;
 }
 
-
+#leftColIndex h2{margin:20px 0px 10px 20px;}
 
 #toggleTruth{margin: 0px;position: absolute; z-index: 1;}
 
-#PrinceofNigeria{margin: 0px;position: absolute; left: 140px ; z-index: 1}
+
+#indexLeftIndentLeft{
+    width: 350px; 
+    float: left;
+    margin-right: 5px;
+    margin-left: 20px;
+}
+#indexLeftIndentRight{
+    width: 350px; 
+    float: left;
+    margin-right: 5px;
+}
+
+
+/*form*/
+
+.form input{width: 350px; height: 30;margin-bottom: 5px}
+
+
+
 /*End Index page*/
