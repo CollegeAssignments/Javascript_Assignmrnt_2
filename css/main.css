@@ -87,8 +87,9 @@ body{
 }
 .innerWrap{
     width: 1100px;
-    height: auto;
+    height: 40px;
     margin: auto;
+    position: relative;
 }
 
 footer{
@@ -368,16 +369,15 @@ button{
     left: 0;
     right: 0;
     top: 70px
-    
 }
 
 #bigMessageMesageSmile{
     position: absolute;
     left: 0;
     right: 0;
-    top: 70px
-    
+    top: 70px;
 }
+
 
 .h1{
     font-size: 90px;
@@ -387,5 +387,5 @@ button{
 
 #toggleTruth{margin: 0px;position: absolute; z-index: 1;}
 
-
+#PrinceofNigeria{margin: 0px;position: absolute; left: 140px ; z-index: 1}
 /*End Index page*/
