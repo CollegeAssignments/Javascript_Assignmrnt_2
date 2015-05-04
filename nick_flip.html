@@ -1,0 +1,135 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Nick Flip</title>
+    
+    <link rel="stylesheet" href="css/main.css">
+    
+    <script src="js/jquery-1.11.2.js"></script>
+    <script src="js/jquery.flip.js"></script>
+    <script src="js/games.js"></script>
+    
+    <script>
+        $(document).ready(function() {
+            
+            var flipBGImages = RandomArray();
+            
+            for(var i=0;i<flipBGImages.length;i++)
+            {
+                CreateTile(flipBGImages[i], i)
+            }
+            
+            var clickCount = 0;
+            var firstFlipTileID;
+            
+            $(".flipable").flip();
+            
+            $(".flipable").click(function() {
+                if($(this).hasClass("flipable"))
+                {
+                    clickCount++;
+
+                    var curFlipID = "#" + $(this).attr("id");
+
+                    if(clickCount ==1)
+                        firstFlipTileID = curFlipID;
+
+                    if(clickCount == 2)
+                    {
+                        setTimeout(function() {
+                            if($(curFlipID).children().eq(1).children("img").attr('src') == $(firstFlipTileID).children().eq(1).children("img").attr('src'))
+                            { 
+                                match1IMG = $(curFlipID).children().eq(1).children("img").attr('src');
+                                match2IMG = $(firstFlipTileID).children().eq(1).children("img").attr('src');
+
+                                $(curFlipID).empty().removeClass("flipable");
+                                $(firstFlipTileID).empty().removeClass("flipable");
+
+                                var matched1 = $("<div>");
+                                matched1.append('<img src="' + match1IMG + '" />');
+                                $(curFlipID).append(matched1);
+
+                                var matched2 = $("<div>");
+                                matched2.append('<img src="' + match2IMG + '" />');
+                                $(firstFlipTileID).append(matched2);
+
+                                firstFlipTileID = "";
+                                curFlipID = "";
+                            }
+                            else
+                            {
+                                $(curFlipID).flip(false);
+                                $(firstFlipTileID).flip(false);
+                            }
+
+                        }, 550);
+
+                        clickCount = 0;
+                    }
+                }
+            });
+            
+            function RandomArray()
+            {
+                var flipBGImages = [];
+
+                for(var i=1;i<11;i++)
+                {
+                    flipBGImages.push("flipBG_" + i);
+                }
+                
+                for(var i=1;i<11;i++)
+                {
+                    flipBGImages.push("flipBG_" + i);
+                }
+                
+                flipBGImages = ShuffleCardDeck(flipBGImages);
+                
+                return flipBGImages;
+            }
+            
+            function CreateTile(image, i)
+            {
+                var tile = $("<div>");
+                tile.attr("id", "tile" + i).addClass("tile").addClass("flipable");
+                
+                var front = $("<div>");
+                front.addClass("front");//.append('<img src="images/flip_images/tile_front.jpg" />');
+                tile.append(front);
+                
+                var back = $("<div>");
+                back.addClass("back").append('<img id="backImage" src="images/flip_images/' + image + '.jpg" />');
+                tile.append(back);
+                
+                $("#gameViewPort").append(tile);
+            }
+        });
+    </script>
+</head>
+<body>
+    <header id="mainHead">
+        <div id="headWrap">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="blackJack.html">BlackJack</a></li>
+                <li><a href="solitaire.html">Solitare</a></li>
+                <li class="active"><a href="nick_flip.html">Nick Flip</a></li>
+            </ul>
+        </div>
+    </header>
+    
+    <div id="bigMessage"><h1>Nick Flip</h1></div>
+    <div id="infoBar">
+        <div class="innerWrap">
+            <div class="messageWrap"><p id="Message"></p></div>
+        </div>
+    </div>
+    <div id="wrapper"> 
+        <div class="innerWrap">
+            <div id="gameViewPort">
+            </div>
+        </div><!--Inner wrap-->
+    </div>
+    <footer></footer>        
+</body>
+</html>
