@@ -1,0 +1,139 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    
+    <link rel="stylesheet" type="text/css" href="css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="css/jquery-ui.css"/>
+    <link rel="stylesheet" type="text/css" href="css/jquery-ui.structure.css"/>
+    <link rel="stylesheet" type="text/css" href="css/jquery-ui.theme.css"/>
+    
+    <script src="js/jquery-1.11.2.js"></script>
+    <script src="js/jquery-ui.js"></script>  
+    
+    <script>
+        $(function() {
+            $( "#tabs" ).tabs();
+        });
+        
+        $(function() {
+            $( "#accordion" ).accordion({
+                heightStyle: "fill"
+            });
+        });
+        $(function() {
+            $( "#accordion-resizer" ).resizable({
+                minHeight: 140,
+                minWidth: 200,
+                resize: function() {
+                    $( "#accordion" ).accordion( "refresh" );
+                }
+            });
+        });
+    </script>
+    
+</head>
+<body>
+    <header id="mainHead">
+        <div id="headWrap">
+            <ul>
+                <li class="active"><a href="index.html">Home</a></li>
+                <li ><a href="blackJack.html">BlackJack</a></li>
+                <li><a href="solitaire.html">Solitaire</a></li>
+                <li><a href="#">Memory Game</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <div id="bigMessage"><h1>Worlds Worst Casino</h1></div>
+    <div id="infoBar">
+        
+    </div><!-- end info bar-->
+    
+    <div id="wrapper" >
+        <div class="innerWrap indexInnerWrap indexWrapper">
+            <div id="leftColIndex">
+                <div id="tabs" class=" indexLeftCol">
+                    <ul>
+                        <li><a href="#tabs-1">Solitaire</a></li>
+                        <li><a href="#tabs-2">BlackJack</a></li>
+                        <li><a href="#tabs-3">Memory Flip</a></li>
+                    </ul>
+                    <div id="tabs-1">
+                        <p>The purpose of Solitaire generally involves manipulating a layout of cards with a goal of sorting them in some manner. However it is possible to play the same games competitively (often a head to head race) and cooperatively.</p><br/><p>Solitaire games typically involve dealing cards from a shuffled deck into a prescribed arrangement on a tabletop, from which the player attempts to reorder the deck by suit and rank through a series of moves transferring cards from one place to another under prescribed restrictions. Some games allow for the reshuffling of the deck(s), and/or the placement of cards into new or "empty" locations. In the most familiar, general form of Patience, the object of the game is to build up four blocks of cards going from ace to king in each suit, taking cards from the layout if they appear on the table.</p>
+                        <img src="images/indexPics/solitaire.jpg"/>
+                    </div>
+                    <div id="tabs-2">
+                        <p>Blackjack, also known as twenty-one, is the most widely played casino banking game in the world.[1] Blackjack is a comparing card game between a player and dealer, meaning that players compete against the dealer but not against any other players. It is played with one or more decks of 52 cards. The object of the game is to beat the dealer, which can be done in a number of ways:</p><br/>
+                        <ul>
+                            <li>Get 21 points on the player's first two cards (called a blackjack), without a dealer blackjack;</li><br/>
+                            <li>Reach a final score higher than the dealer without exceeding 21; or</li><br/>
+                            <li>Let the dealer draw additional cards until his or her hand exceeds 21.</li>
+                        </ul>
+                        <br/>
+                        <p>The player or players are dealt an initial two-card hand and add together the value of their cards. Face cards (kings, queens, and jacks) are counted as ten points. A player and the dealer can count their own ace as 1 point or 11 points. All other cards are counted as the numeric value shown on the card. After receiving their initial two cards, players have the option of getting a "hit", or taking an additional card. In a given round, the player or the dealer wins by having a score of 21 or by having the highest score that is less than 21. Scoring higher than 21 (called "busting" or "going bust") results in a loss. </p>
+                        <img src="images/indexPics/blackJackPic.jpg"/>
+                    </div>
+                    <div id="tabs-3">
+                        <p>Mauris eleifend est et turpis. Duis id erat. Suspendisse potenti. Aliquam vulputate, pede vel vehicula accumsan, mi neque rutrum erat, eu congue orci lorem eget lorem. Vestibulum non ante. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce sodales. Quisque eu urna vel enim commodo pellentesque. Praesent eu risus hendrerit ligula tempus pretium. Curabitur lorem enim, pretium nec, feugiat nec, luctus a, lacus.</p>
+                        <p>Duis cursus. Maecenas ligula eros, blandit nec, pharetra at, semper at, magna. Nullam ac lacus. Nulla facilisi. Praesent viverra justo vitae neque. Praesent blandit adipiscing velit. Suspendisse potenti. Donec mattis, pede vel pharetra blandit, magna ligula faucibus eros, id euismod lacus dolor eget odio. Nam scelerisque. Donec non libero sed nulla mattis commodo. Ut sagittis. Donec nisi lectus, feugiat porttitor, tempor ac, tempor vitae, pede. Aenean vehicula velit eu tellus interdum rutrum. Maecenas commodo. Pellentesque nec elit. Fusce in lacus. Vivamus a libero vitae lectus hendrerit hendrerit.</p>
+                    </div>
+                </div>
+            </div>
+            <div id="rightColIndex" >
+                <div id="accordion-resizer" class="ui-widget-content">
+                    <div id="accordion" >
+                        <h3>Section 1</h3>
+                        <div>
+                            <p>
+                                Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer
+                                ut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sit
+                                amet, nunc. Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo ut
+                                odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate.
+                            </p>
+                        </div>
+                        <h3>Section 2</h3>
+                        <div>
+                            <p>
+                                Sed non urna. Donec et ante. Phasellus eu ligula. Vestibulum sit amet
+                                purus. Vivamus hendrerit, dolor at aliquet laoreet, mauris turpis porttitor
+                                velit, faucibus interdum tellus libero ac justo. Vivamus non quam. In
+                                suscipit faucibus urna.
+                            </p>
+                        </div>
+                        <h3>Section 3</h3>
+                        <div>
+                            <p>
+                                Nam enim risus, molestie et, porta ac, aliquam ac, risus. Quisque lobortis.
+                                Phasellus pellentesque purus in massa. Aenean in pede. Phasellus ac libero
+                                ac tellus pellentesque semper. Sed ac felis. Sed commodo, magna quis
+                                lacinia ornare, quam ante aliquam nisi, eu iaculis leo purus venenatis dui.
+                            </p>
+                            <ul>
+                                <li>List item one</li>
+                                <li>List item two</li>
+                                <li>List item three</li>
+                            </ul>
+                        </div>
+                        <h3>Section 4</h3>
+                        <div>
+                            <p>
+                                Cras dictum. Pellentesque habitant morbi tristique senectus et netus
+                                et malesuada fames ac turpis egestas. Vestibulum ante ipsum primis in
+                                faucibus orci luctus et ultrices posuere cubilia Curae; Aenean lacinia
+                                mauris vel est.
+                            </p>
+                            <p>
+                                Suspendisse eu nisl. Nullam ut libero. Integer dignissim consequat lectus.
+                                Class aptent taciti sociosqu ad litora torquent per conubia nostra, per
+                                inceptos himenaeos.
+                            </p>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+        </div>
+    </div>  
+    <footer></footer>
+</body>
+</html>
