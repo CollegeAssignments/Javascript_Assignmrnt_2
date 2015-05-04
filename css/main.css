@@ -24,6 +24,8 @@ a:hover {
 /*Whole Project Relevent*/
 
 
+
+
 body{
     font-family: Arial, Helvetica, sans-serif;
     background-color: #ecf0f1;
@@ -128,7 +130,7 @@ footer{
     float: left;
     background-color: #fff;
     box-shadow: 0px 1px 1px 0 #bdc3c7, 0px -1px 1px 0 #ecf0f1;
-    border-top-left-radius: 20px;
+
 }
 
 #player{
@@ -154,7 +156,7 @@ button{
 
 .butWidth{
     width: 290px;
-    border-top-left-radius: 10px;
+
     border: #bdc3c7 solid 1px;
 }
 
@@ -208,6 +210,8 @@ button{
     color: #2c3e50;
 }
 
+
+
 #control{
     padding: 5px;
     width: 290px;
@@ -228,7 +232,6 @@ button{
     margin: auto;
     background-color: #fff;
     box-shadow: 0px 1px 1px 0 #bdc3c7, 0px -1px 1px 0 #bdc3c7;
-    border-top-left-radius: 20px;
     border-bottom-right-radius: 20px;
     
 }
@@ -308,7 +311,7 @@ button{
 
 /*Index page*/
 
-.indexInnerWrap{background-color: #fff; height: auto; min-height: 700px;}
+.indexInnerWrap{background-color: #fff; height: auto; min-height: auto; min-height: 800px}
 
 #leftColIndex{
     height: auto;
@@ -323,7 +326,9 @@ button{
     margin-top: 1px
 }
 
-#accordion{height:450px;}
+#accordion{height:780px;}
+
+#accordion img{width:263px; margin-bottom: 5px;}
 
 #leftColIndex img{
     width: 700px;
@@ -335,4 +340,52 @@ button{
 }
 
 .indexWrapper{margin-top: 0px;}
+
+#bigMesageCent
+{
+    height: 300px;
+    width: 1200px;
+    margin: auto;
+    position: relative;
+    background-image: url(../images/bannerBG.jpg);
+}
+
+#bigMessageIndex{
+    width: 100%;
+    height: 400px;
+    line-height: 400px;
+    float: left;
+    text-align: center;
+    font-family: impact;
+    font-size: 40px;
+    background-color: #fff;
+    color: #2c3e50;
+    
+}
+
+#bigMessageMesage{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 70px
+    
+}
+
+#bigMessageMesageSmile{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 70px
+    
+}
+
+.h1{
+    font-size: 90px;
+}
+
+
+
+#toggleTruth{margin: 0px;position: absolute; z-index: 1;}
+
+
 /*End Index page*/

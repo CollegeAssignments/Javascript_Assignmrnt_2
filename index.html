@@ -7,28 +7,88 @@
     <link rel="stylesheet" type="text/css" href="css/jquery-ui.css"/>
     <link rel="stylesheet" type="text/css" href="css/jquery-ui.structure.css"/>
     <link rel="stylesheet" type="text/css" href="css/jquery-ui.theme.css"/>
+    <!--Archtext-->
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
     
-    <script src="js/jquery-1.11.2.js"></script>
+    <!--<script src="js/jquery-1.11.2.js"></script>-->
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script src="js/jquery-ui.js"></script>  
+    <script type="text/javascript" src="js/jquery.arctext.js"></script>
     
     <script>
-        $(function() {
-            $( "#tabs" ).tabs();
-        });
+        $(document).ready(function(){
         
-        $(function() {
-            $( "#accordion" ).accordion({
-                heightStyle: "fill"
+            //Tabs
+            $(function() {
+                $( "#tabs" ).tabs();
             });
-        });
-        $(function() {
-            $( "#accordion-resizer" ).resizable({
-                minHeight: 140,
-                minWidth: 200,
-                resize: function() {
-                    $( "#accordion" ).accordion( "refresh" );
-                }
+
+
+            //Accordian
+            $(function() {
+                $( "#accordion" ).accordion({
+                    heightStyle: "fill"
+                });
             });
+            $(function() {
+                $( "#accordion-resizer" ).resizable({
+                    minHeight: 140,
+                    minWidth: 200,
+                    resize: function() {
+                        $( "#accordion" ).accordion( "refresh" );
+                    }
+                });
+            });
+
+            
+            //ArcText
+            //http://tympanus.net/Development/Arctext/#sub4http://tympanus.net/Development/Arctext/#sub4
+            var $example1	= $('#bigMessageMesage').hide();
+            $example1.show().arctext({radius: 1500});
+
+             
+            //Function to hide top portion of screen
+            $(function() {
+                // run the currently selected effect
+                function runEffect() {
+                    // get effect type from
+                    var selectedEffect =  "blind" ;
+
+                    // most effect types need no options passed by default
+                    var options = {};
+                    // some effects have required parameters
+                    if ( selectedEffect === "scale" ) {
+                        options = { percent: 0 };
+                    } else if ( selectedEffect === "transfer" ) {
+                        options = { to: "#toggleTruth", className: "ui-effects-transfer" };
+                    } else if ( selectedEffect === "size" ) {
+                        options = { to: { width: 200, height: 60 } };
+                    }
+
+                    
+                    
+                    // run the effect
+                    $( "#bigMessageIndex" ).effect( selectedEffect, options, 300);
+                };
+                
+                // callback function to bring a hidden box back
+                function callback() {
+                    setTimeout(function() {
+                        $( "#bigMessageIndex" ).hide().slideDown();
+                    }, 1000 );
+                };
+
+                // set effect from select menu value
+                $( "#toggleTruth" ).click(function() {
+                    runEffect();
+                    $example1.show().arctext('set',{radius: 900, dir: -1, animation	: {
+                        speed	: 200
+                    }});
+                    callback();
+                    return false;
+                });
+            });
+            
         });
     </script>
     
@@ -45,9 +105,11 @@
         </div>
     </header>
 
-    <div id="bigMessage"><h1>Worlds Worst Casino</h1></div>
+    <div id="bigMessageIndex"><div id="bigMesageCent"><h1 id="bigMessageMesage" class="h1">Worlds Worst Casino</h1></div></div>
     <div id="infoBar">
-        
+        <div class="innerWrap">
+            <button id="toggleTruth">Why So Sad</button>
+        </div>
     </div><!-- end info bar-->
     
     <div id="wrapper" >
@@ -83,37 +145,31 @@
             <div id="rightColIndex" >
                 <div id="accordion-resizer" class="ui-widget-content">
                     <div id="accordion" >
-                        <h3>Section 1</h3>
+                        <h3>11 Facts About Nicolas Cage</h3>
                         <div>
-                            <p>
-                                Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer
-                                ut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sit
-                                amet, nunc. Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo ut
-                                odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate.
-                            </p>
-                        </div>
-                        <h3>Section 2</h3>
-                        <div>
-                            <p>
-                                Sed non urna. Donec et ante. Phasellus eu ligula. Vestibulum sit amet
-                                purus. Vivamus hendrerit, dolor at aliquet laoreet, mauris turpis porttitor
-                                velit, faucibus interdum tellus libero ac justo. Vivamus non quam. In
-                                suscipit faucibus urna.
-                            </p>
-                        </div>
-                        <h3>Section 3</h3>
-                        <div>
-                            <p>
-                                Nam enim risus, molestie et, porta ac, aliquam ac, risus. Quisque lobortis.
-                                Phasellus pellentesque purus in massa. Aenean in pede. Phasellus ac libero
-                                ac tellus pellentesque semper. Sed ac felis. Sed commodo, magna quis
-                                lacinia ornare, quam ante aliquam nisi, eu iaculis leo purus venenatis dui.
-                            </p>
                             <ul>
-                                <li>List item one</li>
-                                <li>List item two</li>
-                                <li>List item three</li>
+                                <li>1. Born Nicolas Coppola, he chose Cage as his stage name to honor comic book superhero Luke Cage.</li>
+                                <li>2. Inspired by Superman's birth name, he christened his (now 5-year-old) son Kal-El.</li>
+                                <li>3. Cage's father, the late August Coppola, worked as a comparative literature professor at Cal State Long Beach and served as a trustee of the California state university system.</li>
+                                <li>5. Cage has two older brothers, Marc and Christopher Coppola, both of whom have worked in the film biz.</li>
+                                <li>6. Through his father, Cage is also related to director Francis Ford Coppola (uncle), actress Talia Shire (aunt), director Sofia Coppola (cousin), and actor Jason Schwartzman (cousin).
+                                </li>
+                                <li>7. Cage's first movie role was as a cook in 1982's 'Fast Times at Ridgemont High' (as seen in the background behind Judge Reinhold in the clip below).</li>
+                                <li>8. His next job after that was selling popcorn at a movie theater.</li>
+                                <li>9. But in 1983, he made a name for himself with the cult comedy 'Valley Girl' and his uncle Francis Ford Coppola's 'Rumble Fish,' and he never looked back.</li>
+                                <li>10. A proponent of Method acting, Cage had two of his teeth surgically removed for his role in 1984's 'Birdy.'</li>
+                                <li>11. Cage filed suit against Kathleen Turner, his co-star in the 1986 film 'Peggy Sue Got Married,' after she wrote in her 2008 tell-all that he'd once stolen a Chihuahua.</li>
                             </ul>
+                        </div>
+                        <h3>3 Pictures of Nicolas Cage</h3>
+                        <div>
+                            <img src="images/nicCage/nic1.jpg"/>
+                            <img src="images/nicCage/nic2.jpg"/>
+                            <img src="images/nicCage/nic3.jpg"/>
+                        </div>
+                        <h3>Nicolas Cage Losing His Shit</h3>
+                        <div>
+                            <iframe width="265" height="110" src="https://www.youtube.com/embed/oUltheRpJNw" frameborder="0" allowfullscreen></iframe>
                         </div>
                         <h3>Section 4</h3>
                         <div>
